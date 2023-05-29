@@ -6,7 +6,7 @@
     :key="task.id"
     :task="task"
     @complete-todo="completedTask"
-    @deleted-task="deleteTask"
+    @delete-task="deleteTask"
   />
 </template>
 
