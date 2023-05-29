@@ -2,11 +2,11 @@
   <h1>ToDo List</h1>
   <input type="text" v-model="inputValue" @keypress.enter="addNewTask" />
   <TaskItem
-    v-for="task in tasks"
+    v-for="(task, idx) in tasks"
     :key="task.id"
     :task="task"
-    @complete-todo="completedTask"
-    @delete-task="deleteTask"
+    @complete-todo="completeTask(idx)"
+    @delete-task="deleteTask(idx)"
   />
 </template>
 
@@ -22,11 +22,8 @@ const tasks = ref([
 ]);
 const inputValue = ref("");
 
-const deleteTask = (id) => {
-  const index = tasks.value.findIndex((task) => task.id === id);
-  if (index !== -1) {
-    tasks.value.splice(index, 1);
-  }
+const deleteTask = (idx) => {
+  tasks.value.splice(idx, 1);
 };
 
 const addNewTask = () => {
@@ -40,8 +37,10 @@ const addNewTask = () => {
   }
 };
 
-const completedTask = (id) => {
-  const index = tasks.value.findIndex((task) => task.id === id);
+const completeTask = (idx) => {
+  const index = tasks.value.findIndex(
+    (task) => task.id === tasks.value[idx].id
+  );
   if (index !== -1) {
     const task = tasks.value[index];
     task.completed = !task.completed;

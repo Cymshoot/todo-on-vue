@@ -2,15 +2,13 @@
   <div class="task-wrapper">
     <input
       type="checkbox"
-      @change="$emit('complete-todo', task.id)"
+      @change="$emit('complete-todo')"
       :checked="task.completed"
     />
     <div :style="{ textDecoration: task.completed ? 'line-through' : 'none' }">
       {{ task.title }}
     </div>
-    <div class="delete-task" @click="$emit('delete-task', task.id)">
-      &times;
-    </div>
+    <div class="delete-task" @click="$emit('delete-task')">&times;</div>
   </div>
 </template>
 
