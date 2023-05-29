@@ -38,13 +38,8 @@ const addNewTask = () => {
 };
 
 const completeTask = (idx) => {
-  const index = tasks.value.findIndex(
-    (task) => task.id === tasks.value[idx].id
-  );
-  if (index !== -1) {
-    const task = tasks.value[index];
-    task.completed = !task.completed;
-  }
+  const task = tasks.value[idx];
+  task.completed = !task.completed;
 };
 </script>
 
