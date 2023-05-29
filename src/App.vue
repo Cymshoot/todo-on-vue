@@ -1,57 +1,51 @@
 <template>
   <h1>ToDo List</h1>
-  <input type="text" v-model="input" @keypress.enter="addNewTask" />
-  <Task
+  <input type="text" v-model="inputValue" @keypress.enter="addNewTask" />
+  <TaskItem
     v-for="task in tasks"
     :key="task.id"
     :task="task"
-    @task-completed="completedTask"
-    @task-deleted="deleteTask"
+    @complete-todo="completedTask"
+    @deleted-task="deleteTask"
   />
 </template>
 
-<script>
-import Task from "./components/Task.vue";
+<script setup>
+import TaskItem from "./components/TaskItem.vue";
+import { ref } from "vue";
 
-export default {
-  components: { Task },
-  data() {
-    return {
-      tasks: [
-        { id: 1, title: "awdawd", completed: false },
-        { id: 2, title: "taras", completed: true },
-        { id: 3, title: "privet", completed: false },
-        { id: 4, title: "kak dela", completed: false },
-      ],
-      input: "",
-    };
-  },
-  methods: {
-    deleteTask(id) {
-      const index = this.tasks.findIndex((task) => task.id === id);
-      if (index !== -1) {
-        this.tasks.splice(index, 1);
-      }
-    },
-    addNewTask() {
-      if (this.input && this.input.trim()) {
-        this.tasks.push({
-          id: Date.now(),
-          title: this.input,
-          completed: false,
-        });
-        this.input = "";
-      }
-    },
-    completedTask(id) {
-      this.tasks = this.tasks.map((task) => {
-        if (task.id === id) {
-          task.completed = !task.completed;
-        }
-        return task;
-      });
-    },
-  },
+const tasks = ref([
+  { id: 1, title: "awdawd", completed: false },
+  { id: 2, title: "taras", completed: true },
+  { id: 3, title: "privet", completed: false },
+  { id: 4, title: "kak dela", completed: false },
+]);
+const inputValue = ref("");
+
+const deleteTask = (id) => {
+  const index = tasks.value.findIndex((task) => task.id === id);
+  if (index !== -1) {
+    tasks.value.splice(index, 1);
+  }
+};
+
+const addNewTask = () => {
+  if (inputValue.value && inputValue.value.trim()) {
+    tasks.value.push({
+      id: Date.now(),
+      title: inputValue.value,
+      completed: false,
+    });
+    inputValue.value = "";
+  }
+};
+
+const completedTask = (id) => {
+  const index = tasks.value.findIndex((task) => task.id === id);
+  if (index !== -1) {
+    const task = tasks.value[index];
+    task.completed = !task.completed;
+  }
 };
 </script>
 

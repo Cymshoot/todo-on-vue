@@ -1,10 +1,6 @@
 <template>
   <div class="task-wrapper">
-    <input
-      type="checkbox"
-      @change="completedTask(task.id)"
-      :checked="task.completed"
-    />
+    <input type="checkbox" @change="completedTask" :checked="task.completed" />
     <div :style="{ textDecoration: task.completed ? 'line-through' : 'none' }">
       {{ task.title }}
     </div>
@@ -20,10 +16,13 @@ export default {
       required: true,
     },
   },
-  emits: ["task-completed", "task-deleted"],
+  emits: ["complete-todo", "deleted-task"],
   methods: {
+    completedTask() {
+      this.$emit("complete-todo", this.task.id);
+    },
     deleteTask() {
-      this.$emit("task-deleted", this.task.id);
+      this.$emit("deleted-task", this.task.id);
     },
   },
 };
