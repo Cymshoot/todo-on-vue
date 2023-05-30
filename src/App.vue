@@ -2,12 +2,20 @@
   <img class="logo" src="./assets/Logo.png" />
   <div class="input-container">
     <input
+      :placeholder="placeholder"
       class="input-field"
       type="text"
       v-model="inputValue"
       @keypress.enter="addNewTask"
     />
     <button class="btn" @click="addNewTask">Добавить</button>
+  </div>
+  <div class="count-container">
+    <p class="count">Общее кол-во заметок {{ countTask }}</p>
+    <p class="count-completed" v-if="completedTaskCount !== 0">
+      Выполнено {{ completedTaskCount }} из {{ countTask }}
+    </p>
+    <p class="count-completed" v-else>Выполнено {{ completedTaskCount }}</p>
   </div>
   <TaskItem
     v-for="(task, idx) in tasks"
@@ -20,9 +28,11 @@
 
 <script setup>
 import TaskItem from "./components/TaskItem.vue";
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch, computed } from "vue";
 
 const tasks = ref([]);
+
+const placeholder = ref("Введи заметку");
 
 const inputValue = ref("");
 
@@ -59,6 +69,12 @@ watch(
   },
   { deep: true }
 );
+
+const countTask = computed(() => tasks.value.length);
+
+const completedTaskCount = computed(() => {
+  return tasks.value.filter((task) => task.completed).length;
+});
 </script>
 
 <style>
@@ -107,5 +123,33 @@ watch(
 
   border: 1px solid #0d0d0d;
   border-radius: 8px;
+}
+
+.count-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.count {
+  margin-right: 200px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+
+  color: #4ea8de;
+}
+
+.count-completed {
+  margin-left: 200px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+
+  color: #8284fa;
 }
 </style>
