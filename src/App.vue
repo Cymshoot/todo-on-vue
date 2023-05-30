@@ -20,14 +20,10 @@
 
 <script setup>
 import TaskItem from "./components/TaskItem.vue";
-import { ref } from "vue";
+import { ref, onMounted, watch } from "vue";
 
-const tasks = ref([
-  { id: 1, title: "awdawd", completed: false },
-  { id: 2, title: "taras", completed: true },
-  { id: 3, title: "privet", completed: false },
-  { id: 4, title: "kak dela", completed: false },
-]);
+const tasks = ref([]);
+
 const inputValue = ref("");
 
 const deleteTask = (idx) => {
@@ -49,6 +45,20 @@ const completeTask = (idx) => {
   const task = tasks.value[idx];
   task.completed = !task.completed;
 };
+
+onMounted(() => {
+  if (localStorage.getItem("tasks")) {
+    tasks.value = JSON.parse(localStorage.getItem("tasks"));
+  }
+});
+
+watch(
+  tasks,
+  (saveTasks) => {
+    localStorage.setItem("tasks", JSON.stringify(saveTasks));
+  },
+  { deep: true }
+);
 </script>
 
 <style>
