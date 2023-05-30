@@ -2,7 +2,7 @@
   <img class="logo" src="./assets/Logo.png" />
   <div class="input-container">
     <input
-      :placeholder="placeholder"
+      placeholder="Введи заметку"
       class="input-field"
       type="text"
       v-model="inputValue"
@@ -11,9 +11,9 @@
     <button class="btn" @click="addNewTask">Добавить</button>
   </div>
   <div class="count-container">
-    <p class="count">Общее кол-во заметок {{ countTask }}</p>
+    <p class="count">Общее кол-во заметок {{ tasks.length }}</p>
     <p class="count-completed" v-if="completedTaskCount !== 0">
-      Выполнено {{ completedTaskCount }} из {{ countTask }}
+      Выполнено {{ completedTaskCount }} из {{ tasks.length }}
     </p>
     <p class="count-completed" v-else>Выполнено {{ completedTaskCount }}</p>
   </div>
@@ -31,8 +31,6 @@ import TaskItem from "./components/TaskItem.vue";
 import { ref, onMounted, watch, computed } from "vue";
 
 const tasks = ref([]);
-
-const placeholder = ref("Введи заметку");
 
 const inputValue = ref("");
 
@@ -69,8 +67,6 @@ watch(
   },
   { deep: true }
 );
-
-const countTask = computed(() => tasks.value.length);
 
 const completedTaskCount = computed(() => {
   return tasks.value.filter((task) => task.completed).length;
