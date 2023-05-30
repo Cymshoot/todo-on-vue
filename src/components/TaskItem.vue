@@ -21,4 +21,22 @@ defineProps({
 });
 </script>
 
-<style></style>
+<style>
+.task-wrapper {
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 16px;
+  margin-top: 12px;
+
+  width: 736px;
+  height: 72px;
+
+  background: #262626;
+  border: 1px solid #333333;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+}
+</style>
