@@ -2,7 +2,7 @@
   <img class="logo" src="./assets/Logo.png" />
   <div class="input-container">
     <input
-      placeholder="Введи заметку"
+      placeholder="Введи заметку..."
       class="input-field"
       type="text"
       v-model="inputValue"
