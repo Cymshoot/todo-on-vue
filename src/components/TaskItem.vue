@@ -1,10 +1,9 @@
 <template>
   <div class="task-wrapper">
-    <input
-      type="checkbox"
-      @change="$emit('complete-todo')"
-      :checked="task.completed"
-    />
+    <AppCheckbox
+      :model-value="task.completed"
+      @update:model-value="$emit('complete-todo')"
+    ></AppCheckbox>
 
     <div
       class="task-text"
