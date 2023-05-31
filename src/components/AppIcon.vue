@@ -16,7 +16,7 @@ const props = defineProps({
   },
   color: {
     type: String,
-    default: "black",
+    default: "currentColor",
   },
 });
 
@@ -24,7 +24,6 @@ const iconName = computed(
   () => `url("/icons/${props.name}.svg") no-repeat center`
 );
 </script>
-x
 
 <style scoped>
 .app-icon {
