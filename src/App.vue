@@ -1,29 +1,46 @@
 <template>
-  <img class="logo" src="./assets/Logo.png" />
+  <div class="logo">
+    <img width="126" height="48" src="./assets/Logo.png" />
+  </div>
+
   <div class="input-container">
     <input
-      placeholder="Введи заметку"
+      placeholder="Введи заметку..."
       class="input-field"
       type="text"
       v-model="inputValue"
       @keypress.enter="addNewTask"
     />
-    <button class="btn" @click="addNewTask">Добавить</button>
+
+    <AppButton class="add-button" @click="addNewTask">
+      Добавить <AppIcon name="plus"></AppIcon>
+    </AppButton>
   </div>
+
   <div class="count-container">
-    <p class="count">Общее кол-во заметок {{ tasks.length }}</p>
-    <p class="count-completed" v-if="completedTaskCount !== 0">
-      Выполнено {{ completedTaskCount }} из {{ tasks.length }}
-    </p>
-    <p class="count-completed" v-else>Выполнено {{ completedTaskCount }}</p>
+    <div class="count">
+      Общее кол-во заметок
+      <span class="counter-highlight">{{ tasks.length }}</span>
+    </div>
+    <div class="count-completed">
+      Выполнено
+
+      <span class="counter-highlight">
+        {{ completedTaskCount }}
+        <template v-if="completedTaskCount">из {{ tasks.length }}</template>
+      </span>
+    </div>
   </div>
-  <TaskItem
-    v-for="(task, idx) in tasks"
-    :key="task.id"
-    :task="task"
-    @complete-todo="completeTask(idx)"
-    @delete-task="deleteTask(idx)"
-  />
+
+  <div class="task-list-wrapper">
+    <TaskItem
+      v-for="(task, idx) in tasks"
+      :key="task.id"
+      :task="task"
+      @complete-todo="completeTask(idx)"
+      @delete-task="deleteTask(idx)"
+    />
+  </div>
 </template>
 
 <script setup>
@@ -73,62 +90,40 @@ const completedTaskCount = computed(() => {
 });
 </script>
 
-<style>
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
-
-#app {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
+<style scoped>
 .input-container {
   display: flex;
   align-items: center;
+  margin-bottom: 64px;
+  gap: 8px;
 }
 
-.input-container button {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+.input-field {
+  color: white;
   padding: 16px;
-  margin-top: 52px;
-  margin-left: 8px;
-
-  width: 90px;
-  height: 52px;
-
-  background: #1e6f9f;
-  border-radius: 8px;
-}
-
-.input-container .input-field {
-  box-sizing: border-box;
-
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 16px;
-  margin-top: 53px;
-
-  width: 638px;
   height: 54px;
-
   background: #262626;
-
   border: 1px solid #0d0d0d;
   border-radius: 8px;
+  width: 100%;
+}
+
+.add-button {
+  font-family: "Inter" !important;
+  font-style: normal;
+  font-weight: 700 !important;
 }
 
 .count-container {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-bottom: 24px;
 }
 
 .count {
-  margin-right: 200px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
@@ -139,7 +134,9 @@ const completedTaskCount = computed(() => {
 }
 
 .count-completed {
-  margin-left: 200px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
@@ -147,5 +144,26 @@ const completedTaskCount = computed(() => {
   line-height: 17px;
 
   color: #8284fa;
+}
+
+.task-list-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 736px;
+}
+
+.logo {
+  margin-top: 72px;
+  text-align: center;
+  margin-bottom: 53px;
+}
+
+.counter-highlight {
+  font-size: 12px;
+  padding: 2px 8px;
+  color: white;
+  background-color: #333333;
+  border-radius: 999px;
 }
 </style>

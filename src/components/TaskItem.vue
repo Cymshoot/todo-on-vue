@@ -5,10 +5,33 @@
       @change="$emit('complete-todo')"
       :checked="task.completed"
     />
-    <div :style="{ textDecoration: task.completed ? 'line-through' : 'none' }">
+
+    <div
+      class="task-text"
+      :style="{ textDecoration: task.completed ? 'line-through' : 'none' }"
+    >
       {{ task.title }}
     </div>
-    <div class="delete-task" @click="$emit('delete-task')">&times;</div>
+
+    <div class="button-container">
+      <AppButton
+        class="delete-task"
+        type="icon"
+        variation="alert"
+        @click="$emit('delete-task')"
+      >
+        <AppIcon name="trash" size="18px"></AppIcon>
+      </AppButton>
+
+      <AppButton
+        class="delete-task"
+        type="icon"
+        variation="warning"
+        @click="$emit('delete-task')"
+      >
+        <AppIcon name="arhive" size="18px"></AppIcon>
+      </AppButton>
+    </div>
   </div>
 </template>
 
@@ -23,20 +46,27 @@ defineProps({
 
 <style>
 .task-wrapper {
-  box-sizing: border-box;
-
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   padding: 16px;
-  margin-top: 12px;
-
-  width: 736px;
-  height: 72px;
 
   background: #262626;
   border: 1px solid #333333;
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.06);
   border-radius: 8px;
+  justify-content: space-between;
+}
+
+.button-container {
+  display: flex;
+  gap: 4px;
+}
+
+.task-text {
+  color: white;
+  margin-left: 12px;
+  width: 100%;
+  word-break: break-all;
+  margin-right: 12px;
 }
 </style>
