@@ -24,6 +24,7 @@ const props = defineProps({
   justify-content: center;
   align-items: center;
   transition: all 0.3s;
+  cursor: pointer;
 }
 
 .app-button.--default {
@@ -42,19 +43,23 @@ const props = defineProps({
 .app-button.--icon {
   border-radius: 4px;
   padding: 8px;
+  color: #808080;
+  background-color: rgba(255, 255, 255, 0);
   &.--alert {
-    color: #808080;
-    background-color: rgba(255, 255, 255, 0);
     &:hover {
       color: #e25858;
       background-color: rgba(255, 255, 255, 0.3);
     }
   }
   &.--warning {
-    color: #808080;
-    background-color: rgba(255, 255, 255, 0);
     &:hover {
       color: rgb(255, 145, 0);
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+  }
+  &.--success {
+    &:hover {
+      color: rgb(64, 180, 89);
       background-color: rgba(255, 255, 255, 0.3);
     }
   }
