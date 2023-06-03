@@ -18,15 +18,22 @@ const props = defineProps({
     type: String,
     default: "currentColor",
   },
+  rotate: {
+    type: String,
+    default: "0deg",
+  },
 });
 
 const iconName = computed(
   () => `url("/icons/${props.name}.svg") no-repeat center`
 );
+
+const rotateIcon = computed(() => `rotate(${props.rotate})`);
 </script>
 
 <style scoped>
 .app-icon {
+  transform: v-bind(rotateIcon);
   width: v-bind(size);
   height: v-bind(size);
   background-color: v-bind(color);

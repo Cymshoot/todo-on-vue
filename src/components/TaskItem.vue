@@ -2,7 +2,7 @@
   <div class="task-wrapper">
     <AppCheckbox
       :model-value="task.completed"
-      @update:model-value="$emit('complete-todo')"
+      @update:model-value="$emit('complete-todo', task.id)"
     ></AppCheckbox>
 
     <div
@@ -17,18 +17,29 @@
         class="delete-task"
         type="icon"
         variation="alert"
-        @click="$emit('delete-task')"
+        @click="$emit('delete-task', task.id)"
       >
         <AppIcon name="trash" size="18px"></AppIcon>
       </AppButton>
 
       <AppButton
+        v-if="task.archived"
+        class="delete-task"
+        type="icon"
+        variation="success"
+        @click="$emit('unarchive-task', task.id)"
+      >
+        <AppIcon name="archive" size="18px" rotate="180deg"></AppIcon>
+      </AppButton>
+
+      <AppButton
+        v-else
         class="delete-task"
         type="icon"
         variation="warning"
-        @click="$emit('delete-task')"
+        @click="$emit('archive-task', task.id)"
       >
-        <AppIcon name="arhive" size="18px"></AppIcon>
+        <AppIcon name="archive" size="18px"></AppIcon>
       </AppButton>
     </div>
   </div>
