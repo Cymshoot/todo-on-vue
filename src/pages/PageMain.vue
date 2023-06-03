@@ -1,59 +1,64 @@
 <template>
-  <div class="logo">
-    <img width="126" height="48" src="/assets/Logo.png" />
+  <div class="header-bg">
+    <div class="container">
+      <div class="logo">
+        <img width="126" height="48" src="/assets/Logo.png" />
+      </div>
+
+      <div class="input-container">
+        <input
+          placeholder="Введи заметку..."
+          class="input-field"
+          type="text"
+          v-model="inputValue"
+          @keypress.enter="addTask"
+        />
+
+        <AppButton class="add-button" @click="addTask">
+          Добавить <AppIcon name="plus"></AppIcon>
+        </AppButton>
+      </div>
+    </div>
   </div>
 
-  <div class="input-container">
-    <input
-      placeholder="Введи заметку..."
-      class="input-field"
-      type="text"
-      v-model="inputValue"
-      @keypress.enter="addTask"
-    />
+  <div class="container">
+    <div class="count-container">
+      <div class="count">
+        Общее кол-во задач
+        <span class="counter-highlight">{{ store.filtredTasks.length }}</span>
+      </div>
+      <div class="count-completed">
+        Выполнено
 
-    <AppButton class="add-button" @click="addTask">
-      Добавить <AppIcon name="plus"></AppIcon>
+        <span class="counter-highlight">
+          {{ store.completedTaskCount }}
+          <template v-if="store.completedTaskCount"
+            >из {{ store.filtredTasks.length }}</template
+          >
+        </span>
+      </div>
+    </div>
+
+    <div class="task-list-wrapper">
+      <TaskItem
+        v-for="task in store.filtredTasks"
+        :key="task.id"
+        :task="task"
+        @complete-todo="store.completeTask"
+        @delete-task="store.deleteTask"
+        @archive-task="store.archiveTask"
+      />
+    </div>
+  </div>
+
+  <router-link to="/archive">
+    <AppButton class="bin-container" type="icon" variation="warning">
+      <span v-if="store.archivedTasks.length" class="counter-highlight">{{
+        store.archivedTasks.length
+      }}</span>
+      <AppIcon name="bin" size="25px" color="yellow"> </AppIcon>
     </AppButton>
-  </div>
-
-  <div class="count-container">
-    <div class="count">
-      Общее кол-во задач
-      <span class="counter-highlight">{{ store.filtredTasks.length }}</span>
-    </div>
-    <div class="count-completed">
-      Выполнено
-
-      <span class="counter-highlight">
-        {{ store.completedTaskCount }}
-        <template v-if="store.completedTaskCount"
-          >из {{ store.filtredTasks.length }}</template
-        >
-      </span>
-    </div>
-  </div>
-
-  <div class="task-list-wrapper">
-    <TaskItem
-      v-for="task in store.filtredTasks"
-      :key="task.id"
-      :task="task"
-      @complete-todo="store.completeTask"
-      @delete-task="store.deleteTask"
-      @archive-task="store.archiveTask"
-    />
-  </div>
-  <div class="task-list-wrapper">
-    <router-link to="/archive">
-      <AppButton class="bin-container" type="icon" variation="warning">
-        <span v-if="store.archivedTasks.length" class="counter-highlight">{{
-          store.archivedTasks.length
-        }}</span>
-        <AppIcon name="bin" size="25px" color="yellow"> </AppIcon>
-      </AppButton>
-    </router-link>
-  </div>
+  </router-link>
 </template>
 
 <script setup>
@@ -94,9 +99,10 @@ watch(
 
 <style scoped>
 .input-container {
+  transform: translate(0px, 50%);
   display: flex;
   align-items: center;
-  margin-bottom: 64px;
+  margin-bottom: 91px;
   gap: 8px;
 }
 
@@ -154,9 +160,7 @@ watch(
   gap: 12px;
   width: 736px;
 }
-
 .logo {
-  margin-top: 72px;
   text-align: center;
   margin-bottom: 53px;
 }
