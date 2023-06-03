@@ -1,24 +1,30 @@
 <template>
-  <div class="logo">
-    <img width="126" height="48" src="/assets/Logo.png" />
-  </div>
-
-  <div class="count-container">
-    <div class="count">
-      Общее кол-во заархивированных задач
-      <span class="counter-highlight">{{ store.archivedTasks.length }}</span>
+  <div class="header-bg">
+    <div class="container">
+      <div class="logo">
+        <img width="126" height="48" src="/assets/Logo.png" />
+      </div>
     </div>
   </div>
 
-  <div class="task-list-wrapper">
-    <TaskItem
-      v-for="task in store.archivedTasks"
-      :key="task.id"
-      :task="task"
-      @complete-todo="store.completeTask"
-      @delete-task="store.deleteTask"
-      @unarchive-task="store.unarchiveTask"
-    />
+  <div class="container">
+    <div class="count-container">
+      <div class="count">
+        Общее кол-во заархивированных задач
+        <span class="counter-highlight">{{ store.archivedTasks.length }}</span>
+      </div>
+    </div>
+
+    <div class="task-list-wrapper">
+      <TaskItem
+        v-for="task in store.archivedTasks"
+        :key="task.id"
+        :task="task"
+        @complete-todo="store.completeTask"
+        @delete-task="store.deleteTask"
+        @unarchive-task="store.unarchiveTask"
+      />
+    </div>
   </div>
 
   <router-link to="/">
@@ -77,6 +83,7 @@ watch(
 .count-container {
   display: flex;
   justify-content: space-between;
+  margin-top: 91px;
   margin-bottom: 24px;
 }
 
@@ -114,9 +121,8 @@ watch(
 }
 
 .logo {
-  margin-top: 72px;
   text-align: center;
-  margin-bottom: 53px;
+  padding-bottom: 107px;
 }
 
 .counter-highlight {

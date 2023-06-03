@@ -16,6 +16,16 @@ body {
   font-family: "Inter" !important;
   font-style: normal;
   font-weight: 400 !important;
+  margin: 0 auto;
+}
+
+.container {
   max-width: 736px;
   margin: 0 auto;
+}
+
+.header-bg {
+  padding-top: 72px;
+  background-color: #0d0d0d;
+  width: 100%;
 }
